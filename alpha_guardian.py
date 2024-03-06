@@ -1,6 +1,5 @@
 import os
 import requests
-from bs4 import BeautifulSoup
 
 API_KEY = os.environ.get("KEY_GUARDIAN")
 
