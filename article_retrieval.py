@@ -73,10 +73,6 @@ with open(OUTPUT_PATH, "a") as f:
 # iterate over articles
 url_subset = aljazeera_urls.iloc[args["start_row"] :]  # .head(1000)
 
-from config_local import SEED
-
-url_subset = url_subset.sample(25, random_state=SEED)
-
 
 for row in tqdm(url_subset.itertuples(), total=len(url_subset)):
     page = requests.get(row.url)
