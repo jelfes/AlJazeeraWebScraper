@@ -21,17 +21,16 @@ parser.add_argument(
     default=0,
     help="The first row to start from.",
 )
-parser.add_argument(
-    "-p",
-    "--output_path",
-    type=str,
-    default="output.csv",
-    help="Path to the output file.",
-)
+# parser.add_argument(
+#     "-p",
+#     "--output_path",
+#     type=str,
+#     default="output.csv",
+#     help="Path to the output file.",
+# )
 
 args = vars(parser.parse_args())
 
-OUTPUT_PATH = Path(args["output_path"])
 # load urls
 aljazeera_urls = pd.read_csv(Path(DATA_DIR, "mc_aljazeera_01082022_10032024.csv"))
 
@@ -50,6 +49,9 @@ df_header = pd.DataFrame(
 
 # logging
 timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+
+# OUTPUT_PATH = Path(args["output_path"])
+OUTPUT_PATH = Path(DATA_DIR, f"ir_data_aljazeera_{timestamp}_{args['start_row']}.csv")
 
 logging.basicConfig(
     filename=f"logs/ir_logs_{timestamp}.log",
