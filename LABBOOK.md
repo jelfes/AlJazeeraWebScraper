@@ -1,5 +1,10 @@
 # LabBook
 
+## 02 / 04 / 2024
+- Test if i can remove the `"Follow Al Jazeera English"` and `"In Pictures"` lines from the text. Works!
+- settle on output naming convention for article retrieval: `ir_data_aljazeera_Timestamp_StartId.csv`
+- start information retrieval on line 0
+
 ## 27 / 03 / 2024
 - [Full article](https://www.aljazeera.com/economy/2022/12/12/cvs-walgreens-finalise-10bn-in-deals-to-settle-opioid-lawsuits) was not parsed correctly and had zeor words. Why?
 - Article was properly wrapped in `<p> </p>` tags, but they had a class like `"Component-root-0-2-484 p Component-p-0-2-470"`. They were included due to this rule: `paragraphs = article.find_all("p", class_=None)` in the `get_text_v3` method.
