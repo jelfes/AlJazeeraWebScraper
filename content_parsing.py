@@ -161,3 +161,28 @@ def get_text_v3(article: BeautifulSoup) -> str:
     full_text = "\n".join(text)
 
     return full_text
+
+
+def get_text_v4(article: BeautifulSoup) -> str:
+    """
+    Extracts all text withing a paragraph from an Al Jazeera html page.
+
+    Args:
+        article: The article
+
+    Returns:
+        The main text
+    """
+
+    if not article.find("p"):
+        raise ValueError("No paragraphs found.")
+
+    paragraphs = article.find_all("p")
+
+    text = []
+    for p in paragraphs:
+        text.append(p.text)
+
+    full_text = "\n".join(text)
+
+    return full_text
