@@ -32,7 +32,10 @@ parser.add_argument(
 args = vars(parser.parse_args())
 
 # load urls
-aljazeera_urls = pd.read_csv(Path(DATA_DIR, "mc_aljazeera_01082022_10032024.csv"))
+# aljazeera_urls = pd.read_csv(Path(DATA_DIR, "mc_aljazeera_01082022_10032024.csv"))
+washingtonpost_urls = pd.read_csv(
+    Path(DATA_DIR, "mc_washingtonpost_01012023_16042024.csv")
+)
 
 # setup output format
 df_header = pd.DataFrame(
@@ -51,7 +54,9 @@ df_header = pd.DataFrame(
 timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
 
 # OUTPUT_PATH = Path(args["output_path"])
-OUTPUT_PATH = Path(DATA_DIR, f"ir_data_aljazeera_{timestamp}_{args['start_row']}.csv")
+OUTPUT_PATH = Path(
+    DATA_DIR, f"ir_data_washingtonpost_{timestamp}_{args['start_row']}.csv"
+)
 
 logging.basicConfig(
     filename=f"logs/ir_logs_{timestamp}.log",
@@ -71,7 +76,7 @@ with open(OUTPUT_PATH, "a") as f:
     df_header.to_csv(f, header=f.tell() == 0, index=False)
 
 # iterate over articles
-url_subset = aljazeera_urls.iloc[args["start_row"] :]  # .head(1000)
+url_subset = washingtonpost_urls.iloc[args["start_row"] :].head(1000)
 
 
 for row in tqdm(url_subset.itertuples(), total=len(url_subset)):
