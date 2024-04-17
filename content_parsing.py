@@ -1,4 +1,5 @@
 import re
+import logging
 import requests
 from bs4 import BeautifulSoup
 
@@ -175,7 +176,9 @@ def get_text_v4(article: BeautifulSoup) -> str:
     """
 
     if not article.find("p"):
-        raise ValueError("No paragraphs found.")
+        # raise ValueError("No paragraphs found.")
+        logging.info('ValueError("No paragraphs found.")')
+        return ""
 
     paragraphs = article.find_all("p")
 
