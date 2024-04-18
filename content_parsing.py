@@ -1,4 +1,5 @@
 import re
+import bs4
 import logging
 import requests
 from bs4 import BeautifulSoup
@@ -189,3 +190,56 @@ def get_text_v4(article: BeautifulSoup) -> str:
     full_text = "\n".join(text)
 
     return full_text
+
+
+def merge_paragraphs(
+    paragraphs: list[bs4.element.Tag],
+    attribute_name: str,
+    attribute_value: str,
+) -> str:
+    """
+    Merges all paragraphs with a specific attribute value.
+
+    Args:
+        paragraphs: List of paragraphs
+
+    Returns:
+        List of paragraphs
+        The main text
+    """
+
+    text = []
+    for p in paragraphs:
+
+        p_value = p.attrs.get(attribute_name)
+
+        if not p_value:
+            continue
+        elif p_value != attribute_value:
+            continue
+
+        text.append(p.text)
+
+    full_text = "\n".join(text)
+
+    return full_text
+
+
+def get_paragraphs(article: BeautifulSoup) -> list[bs4.element.Tag]:
+    """
+    Extracts all paragraphs from a webpage.
+
+    Args:
+        article: The article
+
+    Returns:
+        List of paragraphs
+    """
+    if not article.find("p"):
+        # raise ValueError("No paragraphs found.")
+        logging.warning("No paragraphs found!")
+        return []
+
+    paragraphs = article.find_all("p")
+
+    return paragraphs
