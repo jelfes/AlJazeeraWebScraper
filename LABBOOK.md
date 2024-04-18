@@ -1,9 +1,34 @@
 # LabBook
 
+## 18 / 04 / 2024
+- First extraction of 1000 Washington Post articles using SONIC
+- 14 articles were not wrapped in `<p>` tags
+- Rest of the articles had a good looking word count distribution
+
+
 ## 02 / 04 / 2024
 - Test if i can remove the `"Follow Al Jazeera English"` and `"In Pictures"` lines from the text. Works!
 - settle on output naming convention for article retrieval: `ir_data_aljazeera_Timestamp_StartId.csv`
 - start information retrieval on line 0
+- Extraction stopped after index 7718
+- Log: `ir_logs_20240402_095003.log`
+- There is a peak of below 50 word articles. Most of them do not seem to be "In Pictures" but videos or news updates. 
+- There are many of the type `"As the Russia-Ukraine war enters its 220th day, we take a look at the main developments."`
+- Next starting index 7719
+- Finished at 14099: `ir_logs_20240402_115240.log`
+- Next starting index 14100
+- Finished at 14177: `ir_logs_20240402_142642.log`
+    - this was probably because I closed my Laptop
+- Next starting index: 14178
+- Finished at 14734: `ir_logs_20240402_143154.log`
+    - this was probably because I closed my Laptop
+- Next starting index: 14735
+- Finished at 22247: `ir_logs_20240402_144032.log`
+    - connection error (left building and WIFI)
+- Next starting index: 22248
+- Finished at 23348: `ir_logs_20240402_161959.log`
+    - closed the laptop
+- Next starting index: 23349
 
 ## 27 / 03 / 2024
 - [Full article](https://www.aljazeera.com/economy/2022/12/12/cvs-walgreens-finalise-10bn-in-deals-to-settle-opioid-lawsuits) was not parsed correctly and had zeor words. Why?
