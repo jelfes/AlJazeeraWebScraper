@@ -236,8 +236,7 @@ def get_paragraphs(article: BeautifulSoup) -> list[bs4.element.Tag]:
         List of paragraphs
     """
     if not article.find("p"):
-        # raise ValueError("No paragraphs found.")
-        logging.warning("No paragraphs found!")
+        logging.warning(f"WARNING:\t\t{'No paragraphs found!'}")
         return []
 
     paragraphs = article.find_all("p")
