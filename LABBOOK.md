@@ -1,6 +1,12 @@
 # LabBook
 
 ## 18 / 04 / 2024
+- Updated the extraction procedure. We now save the whole webpage as html. Further we extract the text and add it to the csv
+- Everthing else might break the csv
+- Later we will merge all CSVs and put them in a SQLite database
+- Extracting a washington post article takes about 10 seconds. We will split up the ~60k articles in 6 jobs of 10k
+
+## 18 / 04 / 2024
 - First extraction of 1000 Washington Post articles using SONIC
 - 14 articles were not wrapped in `<p>` tags
 - Rest of the articles had a good looking word count distribution
