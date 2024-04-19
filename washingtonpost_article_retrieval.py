@@ -45,7 +45,6 @@ df_header = pd.DataFrame(
         "title": [],
         "retrieval_time": [],
         "web_page": [],
-        "paragraphs": [],
         "full_text": [],
         "word_count": [],
     }
@@ -108,7 +107,6 @@ for row in tqdm(url_subset.itertuples(), total=len(url_subset)):
         row.title,
         retrieval_time,
         article_file_path,
-        paragraphs,
         full_text,
         word_count,
     ]
