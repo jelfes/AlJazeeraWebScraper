@@ -21,6 +21,13 @@ parser.add_argument(
     default=0,
     help="The first row to start from.",
 )
+parser.add_argument(
+    "-e",
+    "--end_row",
+    type=int,
+    default=0,
+    help="The row to end.",
+)
 # parser.add_argument(
 #     "-p",
 #     "--output_path",
@@ -54,9 +61,9 @@ df_header = pd.DataFrame(
 # logging
 timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
 
-# OUTPUT_PATH = Path(args["output_path"])
 OUTPUT_PATH = Path(
-    DATA_DIR, f"ir_data_washingtonpost_{timestamp}_{args['start_row']}.csv"
+    DATA_DIR,
+    f"ir_data_washingtonpost_{timestamp}_{args['start_row']}_{args['end_row']}.csv",
 )
 
 logging.basicConfig(
@@ -67,8 +74,9 @@ logging.basicConfig(
 )
 logging.captureWarnings(True)
 logging.info("Start logging")
-logging.info(f"Starting row: {args['start_row']}")
-logging.info(f"Output is saved to: {OUTPUT_PATH.absolute()}")
+logging.info(f"Starting row:\t\t{args['start_row']}")
+logging.info(f"End row:\t\t{args['end_row']}")
+logging.info(f"Output is saved to:\t{OUTPUT_PATH.absolute()}")
 logging.info("##############################################################\n")
 
 
@@ -77,7 +85,7 @@ with open(OUTPUT_PATH, "a") as f:
     df_header.to_csv(f, header=f.tell() == 0, index=False)
 
 # iterate over articles
-url_subset = washingtonpost_urls.iloc[args["start_row"] :].head(10)
+url_subset = washingtonpost_urls.iloc[args["start_row"] : args["end_row"]]
 
 
 for row in tqdm(url_subset.itertuples(), total=len(url_subset)):
