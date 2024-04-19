@@ -75,7 +75,7 @@ logging.basicConfig(
 logging.captureWarnings(True)
 logging.info("Start logging")
 logging.info(f"Starting row:\t\t{args['start_row']}")
-logging.info(f"End row:\t\t{args['end_row']}")
+logging.info(f"End row:\t\t\t{args['end_row']}")
 logging.info(f"Output is saved to:\t{OUTPUT_PATH.absolute()}")
 logging.info("##############################################################\n")
 
