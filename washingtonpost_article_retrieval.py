@@ -28,18 +28,11 @@ parser.add_argument(
     default=0,
     help="The row to end.",
 )
-# parser.add_argument(
-#     "-p",
-#     "--output_path",
-#     type=str,
-#     default="output.csv",
-#     help="Path to the output file.",
-# )
+
 
 args = vars(parser.parse_args())
 
 # load urls
-# aljazeera_urls = pd.read_csv(Path(DATA_DIR, "mc_aljazeera_01082022_10032024.csv"))
 washingtonpost_urls = pd.read_csv(
     Path(DATA_DIR, "mc_washingtonpost_01012023_16042024.csv")
 )
