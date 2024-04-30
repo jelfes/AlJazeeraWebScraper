@@ -1,5 +1,16 @@
 # LabBook
 
+##
+- There are aljazeera urls that share an id but different url
+- Unique id form url? --> Hash function
+
+## 22 / 04 / 2024
+- about 30% of washington post articles have `word_count=0`. This seems to be for diverse reasons. The `politics` section has a very low fraction of zero lenght articles (2%). THe `world` section has a very high one (70%). `Busisness` has 40% and `opinions` 7%.
+- For the `world` section a lot of URLs seem to be not reachable. When checking them by hand, they forward me to the `washingtonpost.com` main page
+- Slightly less than half of the zero word politics articles are `interactive` pages such as [this one](https://www.washingtonpost.com/politics/interactive/2024/14th-amendment-trump-ballot/).
+- Maybe limit coverage to the 5000 politics articles?
+
+
 ## 18 / 04 / 2024
 - Updated the extraction procedure. We now save the whole webpage as html. Further we extract the text and add it to the csv
 - Everthing else might break the csv
