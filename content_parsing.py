@@ -194,8 +194,8 @@ def get_text_v4(article: BeautifulSoup) -> str:
 
 def merge_paragraphs(
     paragraphs: list[bs4.element.Tag],
-    attribute_name: str,
-    attribute_value: str,
+    attribute_name=None,
+    attribute_value=None,
 ) -> str:
     """
     Merges all paragraphs with a specific attribute value.
@@ -211,12 +211,14 @@ def merge_paragraphs(
     text = []
     for p in paragraphs:
 
-        p_value = p.attrs.get(attribute_name)
+        if attribute_name is not None:
 
-        if not p_value:
-            continue
-        elif p_value != attribute_value:
-            continue
+            p_value = p.attrs.get(attribute_name)
+
+            if not p_value:
+                continue
+            elif p_value != attribute_value:
+                continue
 
         text.append(p.text)
 
