@@ -1,5 +1,6 @@
 import re
 import pandas as pd
+import sqlite3
 import logging
 import argparse
 import requests
@@ -28,14 +29,24 @@ parser.add_argument(
     default=0,
     help="The row to end.",
 )
-
+parser.add_argument(
+    "-t",
+    "--test",
+    type=bool,
+    default=False,
+    help="Setting to test mode.",
+)
 
 args = vars(parser.parse_args())
 
 # load urls
-washingtonpost_urls = pd.read_csv(
-    Path(DATA_DIR, "mc_washingtonpost_01012023_16042024.csv")
-)
+conn = sqlite3.connect(Path(DATA_DIR, "database.db"))
+QUERY = """
+    SELECT *
+    FROM washingtonpost_urls_01012023_16042024
+    """
+washingtonpost_urls = pd.read_sql(QUERY, conn)
+
 
 # setup output format
 df_header = pd.DataFrame(
@@ -59,6 +70,13 @@ OUTPUT_PATH = Path(
     f"ir_data_washingtonpost_{timestamp}_{args['start_row']}_{args['end_row']}.csv",
 )
 
+if args["test"]:
+    OUTPUT_PATH = Path(
+        DATA_DIR,
+        "tests",
+        f"ir_data_washingtonpost_{timestamp}_{args['start_row']}_{args['end_row']}.csv",
+    )
+
 logging.basicConfig(
     filename=f"logs/ir_logs_{timestamp}.log",
     encoding="utf-8",
@@ -69,6 +87,7 @@ logging.captureWarnings(True)
 logging.info("Start logging")
 logging.info(f"Starting row:\t\t{args['start_row']}")
 logging.info(f"End row:\t\t\t{args['end_row']}")
+logging.info(f"Test:\t\t\t{args['test']}")
 logging.info(f"Output is saved to:\t{OUTPUT_PATH.absolute()}")
 logging.info("##############################################################\n")
 
