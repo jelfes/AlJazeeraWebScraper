@@ -1,5 +1,6 @@
 import re
 import pandas as pd
+import sqlite3
 import logging
 import argparse
 import requests
@@ -28,12 +29,24 @@ parser.add_argument(
     default=0,
     help="The row to end.",
 )
+parser.add_argument(
+    "-t",
+    "--test",
+    type=bool,
+    default=False,
+    help="Setting to test mode.",
+)
 
 
 args = vars(parser.parse_args())
 
 # load urls
-aljazeera_urls = pd.read_csv(Path(DATA_DIR, "mc_aljazeera_01082022_10032024.csv"))
+conn = sqlite3.connect(Path(DATA_DIR, "database.db"))
+QUERY = """
+    SELECT *
+    FROM aljazeera_urls_01082022_10032024
+    """
+aljazeera_urls = pd.read_sql(QUERY, conn)
 
 # setup output format
 df_header = pd.DataFrame(
@@ -56,6 +69,14 @@ OUTPUT_PATH = Path(
     DATA_DIR,
     f"ir_data_aljazeera_{timestamp}_{args['start_row']}_{args['end_row']}.csv",
 )
+
+if args["test"]:
+    OUTPUT_PATH = Path(
+        DATA_DIR,
+        "tests",
+        f"ir_data_aljazeera_{timestamp}_{args['start_row']}_{args['end_row']}.csv",
+    )
+
 
 logging.basicConfig(
     filename=f"logs/ir_logs_{timestamp}.log",
@@ -90,7 +111,7 @@ for row in tqdm(url_subset.itertuples(), total=len(url_subset)):
 
     article = BeautifulSoup(page.content, "html.parser")
     paragraphs = get_paragraphs(article)
-    full_text = merge_paragraphs(paragraphs, "data-el", "text")
+    full_text = merge_paragraphs(paragraphs, None, None)
     word_count = len(full_text.split())
     retrieval_time = datetime.now()
 
