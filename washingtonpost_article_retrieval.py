@@ -40,7 +40,7 @@ washingtonpost_urls = pd.read_csv(
 # setup output format
 df_header = pd.DataFrame(
     {
-        "id": [],
+        "hash_id": [],
         "url": [],
         "title": [],
         "retrieval_time": [],
@@ -84,7 +84,7 @@ url_subset = washingtonpost_urls.iloc[args["start_row"] : args["end_row"]]
 for row in tqdm(url_subset.itertuples(), total=len(url_subset)):
     page = requests.get(row.url)
 
-    logging.info(f"Article ID: \t{row.id}")
+    logging.info(f"Article ID: \t{row.hash_id}")
     logging.info(f"Article title: \t{row.title}")
     logging.info(f"Row: \t\t\t{row.Index}")
     logging.info(f"URL: \t\t\t{row.url}")
@@ -96,14 +96,14 @@ for row in tqdm(url_subset.itertuples(), total=len(url_subset)):
     word_count = len(full_text.split())
     retrieval_time = datetime.now()
 
-    article_file_path = Path("web_pages", f"{row.id}.html")
+    article_file_path = Path("web_pages", f"{row.hash_id}.html")
 
     # save article
     with open(Path(DATA_DIR, article_file_path), "w", encoding="utf-8") as file:
         file.write(article.prettify())
 
     new_row = [
-        row.id,
+        row.hash_id,
         row.url,
         row.title,
         retrieval_time,
