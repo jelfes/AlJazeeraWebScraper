@@ -119,7 +119,7 @@ for row in tqdm(url_subset.itertuples(), total=len(url_subset)):
 
     # save article
     with open(Path(DATA_DIR, article_file_path), "w", encoding="utf-8") as file:
-        file.write(article.prettify())
+        file.write(page.text)
 
     new_row = [
         row.hash_id,
