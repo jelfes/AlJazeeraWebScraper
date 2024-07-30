@@ -220,6 +220,9 @@ def merge_paragraphs(
             elif p_value != attribute_value:
                 continue
 
+        if p.text == "Follow Al Jazeera English:":
+            continue
+
         text.append(p.text)
 
     full_text = "\n".join(text)
