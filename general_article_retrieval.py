@@ -48,7 +48,7 @@ parser.add_argument(
 args = vars(parser.parse_args())
 
 # load urls
-aljazeera_urls = pd.read_csv(args["file_path"])
+urls = pd.read_csv(args["file_path"])
 
 # setup output format
 df_header = pd.DataFrame(
@@ -99,10 +99,10 @@ with open(OUTPUT_PATH, "a") as f:
     df_header.to_csv(f, header=f.tell() == 0, index=False)
 
 # iterate over articles
-url_subset = aljazeera_urls.iloc[args["start_row"] : args["end_row"]]
+urls_subset = urls.iloc[args["start_row"] : args["end_row"]]
 
 
-for row in tqdm(url_subset.itertuples(), total=len(url_subset)):
+for row in tqdm(urls_subset.itertuples(), total=len(urls_subset)):
     page = requests.get(row.url)
 
     logging.info(f"Article ID: \t{row.hash_id}")
